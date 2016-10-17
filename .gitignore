@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CaliburnPlayground/v14
+/.vs/config
+/CaliburnPlayground/bin/Debug
+/CaliburnPlayground/obj/Debug/TempPE
+/CaliburnPlayground/obj/Debug
+/packages

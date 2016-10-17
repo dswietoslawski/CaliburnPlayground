@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CaliburnPlayground.ViewModels
 {
@@ -28,12 +29,11 @@ namespace CaliburnPlayground.ViewModels
 
         public IEnumerable<ToDoItem> ToDoItemsAggr
         {
-            get {
+            get
+            {
                 var x = ToDoItems.GroupBy(m => m.Sku + m.Size);
-                foreach(var y in x)
-                {
+                foreach (var y in x)
                     yield return y.First();
-                }
             }
         }
 
@@ -47,6 +47,25 @@ namespace CaliburnPlayground.ViewModels
                 NotifyOfPropertyChange(() => SelectedItem);
                 _eventAggregator.PublishOnUIThread(new SelectedItemChangedMessage() { toDoItem = _selectedItem });
             }
+        }
+
+        private ToDoItem _selectedAggrItem;
+
+        public ToDoItem SelectedAggrItem
+        {
+            get { return _selectedAggrItem; }
+            set
+            {
+                _selectedAggrItem = value;
+                NotifyOfPropertyChange(() => SelectedAggrItem);
+            }
+        }
+
+        public void SelectedItemChanged(ToDoItem item)
+        {
+            var y = ToDoItemsAggr;
+            var x = ToDoItemsAggr.First(m => m.Equals(item));
+            SelectedAggrItem = x;
         }
 
         [ImportingConstructor]
@@ -64,7 +83,6 @@ namespace CaliburnPlayground.ViewModels
 
         protected override void OnActivate()
         {
-            base.OnActivate();
             for (int i = 0; i < 20; i++)
             {
                 ToDoItems.Add(new ToDoItem()
@@ -74,13 +92,13 @@ namespace CaliburnPlayground.ViewModels
                     Sku = i % 3 == 0 ? "piotrek" : "Dupa"
                 });
             }
-
+            base.OnActivate();
         }
 
         protected override void OnDeactivate(bool close)
         {
-            base.OnDeactivate(close);
             ToDoItems.Clear();
+            base.OnDeactivate(close);
         }
     }
 }

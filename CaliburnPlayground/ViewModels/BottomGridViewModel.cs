@@ -8,6 +8,7 @@ using System.ComponentModel.Composition;
 using CaliburnPlayground.Messages;
 using CaliburnPlayground.Models;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace CaliburnPlayground.ViewModels
 {
@@ -47,6 +48,13 @@ namespace CaliburnPlayground.ViewModels
                     ParentName = _toDoItem.Name
                 });
             }
+        }
+
+        public void OnLostFocus(object source, ToDoItemChild item)
+        {
+            var t = (source as TextBox);
+            var bt = t.GetBindingExpression(TextBox.TextProperty);
+            bt.UpdateSource();
         }
     }
 }

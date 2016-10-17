@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CaliburnPlayground.Models
 {
-    public class ToDoItem : PropertyChangedBase
+    public class ToDoItem : PropertyChangedBase, IEquatable<ToDoItem>
     {
         private string name;
         private string size;
@@ -41,6 +41,11 @@ namespace CaliburnPlayground.Models
                 sku = value;
                 NotifyOfPropertyChange(() => Sku);
             }
+        }
+
+        public bool Equals(ToDoItem other)
+        {
+            return Sku.Equals(other.Sku) && Size.Equals(other.Size);
         }
     }
 }

@@ -42,5 +42,17 @@ namespace CaliburnPlayground.Models
                 NotifyOfPropertyChange(() => ParentName);
             }
         }
+
+        private int quantity;
+
+        public int Quantity
+        {
+            get { return quantity; }
+            set
+            {
+                quantity = value;
+                NotifyOfPropertyChange(() => Quantity);
+            }
+        }
     }
 }

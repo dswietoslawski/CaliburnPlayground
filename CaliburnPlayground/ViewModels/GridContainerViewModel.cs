@@ -23,11 +23,6 @@ namespace CaliburnPlayground.ViewModels
             ToDoItemVM = toDoItemVM;
             Dashboard = dashboard;
             BottomGrid = bottomGrid;
-
-            Tabs = new ObservableCollection<BaseTabViewModel>();
-
-            Tabs.Add(ToDoItemVM);
-            Tabs.Add(toDoItemVM);
         }
 
 
