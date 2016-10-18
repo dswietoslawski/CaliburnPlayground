@@ -37,12 +37,9 @@ namespace CaliburnPlayground.ViewModels
         {
             base.OnActivate();
 
-            Items.Add(ToDoItemVM);
-            Items.Add(Dashboard);
-            Items.Add(BottomGrid);
-
-            foreach (var item in Items)
-                ActivateItem(item);
+            ActivateItem(ToDoItemVM);
+            ActivateItem(Dashboard);
+            ActivateItem(BottomGrid);
         }
 
     }

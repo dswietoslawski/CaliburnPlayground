@@ -8,6 +8,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="ToDoItemsAggr" AutoGenerateColumns="True" SelectedItem="{Binding SelectedAggrItem, Mode=TwoWay}"  />
+        <DataGrid x:Name="ToDoItemsAggr" AutoGenerateColumns="False" SelectedItem="{Binding SelectedAggrItem}" cal:Message.Attach="[Event SelectionChanged] = [SelectedAggrItemChanged($this)]">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Size}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Sku}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

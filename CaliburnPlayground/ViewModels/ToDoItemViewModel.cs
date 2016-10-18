@@ -63,9 +63,12 @@ namespace CaliburnPlayground.ViewModels
 
         public void SelectedItemChanged(ToDoItem item)
         {
-            var y = ToDoItemsAggr;
-            var x = ToDoItemsAggr.First(m => m.Equals(item));
-            SelectedAggrItem = x;
+            SelectedAggrItem = ToDoItemsAggr.First(m => m.Equals(item));
+        }
+
+        public void SelectedAggrItemChanged(ToDoItem item)
+        {
+            SelectedItem = ToDoItems.First(m => m.Equals(item));
         }
 
         [ImportingConstructor]

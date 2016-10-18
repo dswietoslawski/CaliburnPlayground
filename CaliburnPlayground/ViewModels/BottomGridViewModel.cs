@@ -37,16 +37,19 @@ namespace CaliburnPlayground.ViewModels
 
         public void Handle(SelectedItemChangedMessage message)
         {
-            this._toDoItem = message.toDoItem;
-            ToDoItemChildren.Clear();
-            for (int i = 0; i < 20; i++)
+            if (message.toDoItem != null)
             {
-                ToDoItemChildren.Add(new ToDoItemChild()
+                this._toDoItem = message.toDoItem;
+                ToDoItemChildren.Clear();
+                for (int i = 0; i < 20; i++)
                 {
-                    Name = "Item" + i,
-                    Id = i,
-                    ParentName = _toDoItem.Name
-                });
+                    ToDoItemChildren.Add(new ToDoItemChild()
+                    {
+                        Name = "Item" + i,
+                        Id = i,
+                        ParentName = _toDoItem.Name
+                    });
+                }
             }
         }
 

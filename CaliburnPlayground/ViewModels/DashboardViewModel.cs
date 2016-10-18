@@ -30,8 +30,11 @@ namespace CaliburnPlayground.ViewModels
 
         public void Handle(SelectedItemChangedMessage message)
         {
-            _toDoItem = message.toDoItem;
-            Name = _toDoItem.Name;
+            if (message.toDoItem != null)
+            {
+                _toDoItem = message.toDoItem;
+                Name = _toDoItem.Name;
+            }
         }
 
         protected override void OnDeactivate(bool close)

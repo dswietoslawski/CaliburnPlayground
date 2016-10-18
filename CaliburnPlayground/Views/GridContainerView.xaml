@@ -22,10 +22,13 @@
             <TabItem Header="Tab1" cal:View.Model="{Binding ToDoItemVM}" cal:View.Context="ItemGrid"></TabItem>
             <TabItem Header="Tab2" cal:View.Model="{Binding ToDoItemVM}" cal:View.Context="Tab2"></TabItem>
         </TabControl>
-        
-        <Border Margin="0,27,0,5" Grid.Column="1" BorderBrush="Aqua" BorderThickness="10">
+
+        <!--<ContentControl Grid.Column="0" cal:View.Model="{Binding ToDoItemVM}" cal:View.Context="ItemGrid"></ContentControl>-->
+        <!--<ContentControl Grid.Column="1" cal:View.Model="{Binding ToDoItemVM}" cal:View.Context="Tab2"></ContentControl>-->
+
+        <!--<Border Margin="0,27,0,5" Grid.Column="1" BorderBrush="Aqua" BorderThickness="10">
             <ContentControl x:Name="Dashboard"></ContentControl>
-        </Border>
+        </Border>-->
 
         <ContentControl Grid.Row="1" Grid.ColumnSpan="2" x:Name="BottomGrid"></ContentControl>
     </Grid>
