@@ -13,14 +13,12 @@ namespace CaliburnPlayground.ViewModels
     public class GridContainerViewModel : ConductorBase
     {
         public SkuViewModel SkuGrid { get; set; }
-        public DashboardViewModel Dashboard { get; set; }
         public StoreMarketGridViewModel StoreMarketGrid { get; set; }
 
         [ImportingConstructor]
-        public GridContainerViewModel(SkuViewModel skuGrid, StoreMarketGridViewModel storeMarketGrid, DashboardViewModel dashboard, IEventAggregator eventAggregator, IWindowManager windowManager) : base(eventAggregator, windowManager)
+        public GridContainerViewModel(SkuViewModel skuGrid, StoreMarketGridViewModel storeMarketGrid, IEventAggregator eventAggregator, IWindowManager windowManager) : base(eventAggregator, windowManager)
         {
             SkuGrid = skuGrid;
-            Dashboard = dashboard;
             StoreMarketGrid = storeMarketGrid;
         }
 
@@ -37,7 +35,6 @@ namespace CaliburnPlayground.ViewModels
             base.OnActivate();
 
             ActivateItem(SkuGrid);
-            ActivateItem(Dashboard);
             ActivateItem(StoreMarketGrid);
         }
 
