@@ -14,29 +14,13 @@ using CaliburnPlayground.Services;
 namespace CaliburnPlayground.ViewModels
 {
     [Export(typeof(StoreMarketGridViewModel))]
-    public class StoreMarketGridViewModel : ViewModelBase, IHandle<SelectedSkuChangedMessage>
+    public class StoreMarketGridViewModel : StoreMarketGridViewModelBase, IHandle<SelectedSkuChangedMessage>
     {
-        private Sku _sku;
-        private BindableCollection<StoreMarket> _storeMarkets;
-        private SkuService _skuService;
-
-        public BindableCollection<StoreMarket> StoreMarkets
-        {
-            get { return _storeMarkets; }
-            set
-            {
-                _storeMarkets = value;
-                NotifyOfPropertyChange(() => StoreMarkets);
-            }
-        }
-
         [ImportingConstructor]
         public StoreMarketGridViewModel(IEventAggregator eventAggregator, IWindowManager windowManager) : base(eventAggregator, windowManager)
         {
-            this.StoreMarkets = new BindableCollection<StoreMarket>();
-            _skuService = new SkuService();
-        }
 
+        }
 
         public void Handle(SelectedSkuChangedMessage message)
         {

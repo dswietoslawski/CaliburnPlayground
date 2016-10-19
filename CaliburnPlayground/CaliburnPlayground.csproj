@@ -114,6 +114,7 @@
     <Compile Include="ViewModels\GridContainerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SkuViewModel.cs" />
+    <Compile Include="ViewModels\StoreMarketGridViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Sku\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
