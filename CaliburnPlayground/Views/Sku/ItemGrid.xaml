@@ -1,18 +1,19 @@
-﻿<UserControl x:Class="CaliburnPlayground.Views.ToDoItem.Tab2"
+﻿<UserControl x:Class="CaliburnPlayground.Views.Sku.ItemGrid"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CaliburnPlayground.Views.ToDoItem"
+             xmlns:local="clr-namespace:CaliburnPlayground.Views.Sku"
         xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="ToDoItemsAggr" AutoGenerateColumns="False" SelectedItem="{Binding SelectedAggrItem}" cal:Message.Attach="[Event SelectionChanged] = [SelectedAggrItemChanged($this)]">
+        <DataGrid x:Name="Items" AutoGenerateColumns="False" MouseDown="ToDoItemsAggr_MouseDown" SelectedItem="{Binding SelectedItem}" cal:Message.Attach="[Event Loaded] = [OnItemsLoaded]">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Size}"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Sku}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding SumQty}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

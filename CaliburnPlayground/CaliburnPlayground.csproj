@@ -47,6 +47,10 @@
       <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FizzWare.NBuilder, Version=3.0.1.0, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
+      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.Composition.registration" />
@@ -97,23 +101,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Messages\SelectedItemChangedMessage.cs" />
-    <Compile Include="Messages\SimpleCheckMessage.cs" />
-    <Compile Include="Models\ToDoItem.cs" />
-    <Compile Include="Models\ToDoItemChild.cs" />
-    <Compile Include="ViewModels\BaseTabViewModel.cs" />
-    <Compile Include="ViewModels\BottomGridViewModel.cs" />
+    <Compile Include="Helpers\MockGenerator.cs" />
+    <Compile Include="Messages\SelectedSkuChangedMessage.cs" />
+    <Compile Include="Models\Sku.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\StoreMarket.cs" />
+    <Compile Include="Services\BaseMockSkuService.cs" />
+    <Compile Include="Services\SkuService.cs" />
+    <Compile Include="ViewModels\StoreMarketGridViewModel.cs" />
     <Compile Include="ViewModels\ConductorBase.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\GridContainerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ToDoItemViewModel.cs" />
+    <Compile Include="ViewModels\SkuViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\BottomGridView.xaml.cs">
-      <DependentUpon>BottomGridView.xaml</DependentUpon>
+    <Compile Include="Views\Sku\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DashboardView.xaml.cs">
-      <DependentUpon>DashboardView.xaml</DependentUpon>
+    <Compile Include="Views\StoreMarketGridView.xaml.cs">
+      <DependentUpon>StoreMarketGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GridContainerView.xaml.cs">
       <DependentUpon>GridContainerView.xaml</DependentUpon>
@@ -121,17 +127,17 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ToDoItem\ItemGrid.xaml.cs">
+    <Compile Include="Views\Sku\SkuGrid.xaml.cs">
+      <DependentUpon>SkuGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sku\ItemGrid.xaml.cs">
       <DependentUpon>ItemGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ToDoItem\Tab2.xaml.cs">
-      <DependentUpon>Tab2.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Views\BottomGridView.xaml">
+    <Page Include="Views\Sku\Dashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DashboardView.xaml">
+    <Page Include="Views\StoreMarketGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,11 +149,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ToDoItem\ItemGrid.xaml">
+    <Page Include="Views\Sku\SkuGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ToDoItem\Tab2.xaml">
+    <Page Include="Views\Sku\ItemGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

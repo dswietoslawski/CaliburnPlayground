@@ -12,17 +12,16 @@ namespace CaliburnPlayground.ViewModels
     [Export(typeof(GridContainerViewModel))]
     public class GridContainerViewModel : ConductorBase
     {
-        public ToDoItemViewModel ToDoItemVM { get; set; }
+        public SkuViewModel SkuGrid { get; set; }
         public DashboardViewModel Dashboard { get; set; }
-        public ObservableCollection<BaseTabViewModel> Tabs { get; set; }
-        public BottomGridViewModel BottomGrid { get; set; }
+        public StoreMarketGridViewModel StoreMarketGrid { get; set; }
 
         [ImportingConstructor]
-        public GridContainerViewModel(ToDoItemViewModel toDoItemVM, BottomGridViewModel bottomGrid, DashboardViewModel dashboard, IEventAggregator eventAggregator, IWindowManager windowManager) : base(eventAggregator, windowManager)
+        public GridContainerViewModel(SkuViewModel skuGrid, StoreMarketGridViewModel storeMarketGrid, DashboardViewModel dashboard, IEventAggregator eventAggregator, IWindowManager windowManager) : base(eventAggregator, windowManager)
         {
-            ToDoItemVM = toDoItemVM;
+            SkuGrid = skuGrid;
             Dashboard = dashboard;
-            BottomGrid = bottomGrid;
+            StoreMarketGrid = storeMarketGrid;
         }
 
 
@@ -37,9 +36,9 @@ namespace CaliburnPlayground.ViewModels
         {
             base.OnActivate();
 
-            ActivateItem(ToDoItemVM);
+            ActivateItem(SkuGrid);
             ActivateItem(Dashboard);
-            ActivateItem(BottomGrid);
+            ActivateItem(StoreMarketGrid);
         }
 
     }

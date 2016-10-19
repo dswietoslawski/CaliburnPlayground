@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace CaliburnPlayground.Views
 {
-    /// <summary>
-    /// Interaction logic for DashboardView.xaml
-    /// </summary>
-    public partial class DashboardView : UserControl
+    public partial class StoreMarketGridView : UserControl
     {
-        public DashboardView()
+        public StoreMarketGridView()
         {
             InitializeComponent();
         }

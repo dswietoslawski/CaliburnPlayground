@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CaliburnPlayground.Messages
 {
-    public class SelectedItemChangedMessage
+    public class SelectedSkuChangedMessage
     {
-        public ToDoItem toDoItem { get; set; }
+        public Sku Sku { get; set; }
     }
 }

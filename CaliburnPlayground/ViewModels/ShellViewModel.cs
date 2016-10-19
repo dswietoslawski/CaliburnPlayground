@@ -32,12 +32,6 @@ namespace CaliburnPlayground.ViewModels
             else
                 ActivateItem(_gridContainerVM);
         }
-
-        public void CheckIfSubsOk()
-        {
-            _eventAggregator.PublishOnUIThread(new SimpleCheckMessage());
-        }
-
         
     }
 }

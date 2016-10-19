@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CaliburnPlayground.Models
 {
-    public class ToDoItemChild : PropertyChangedBase
+    public class StoreMarket : PropertyChangedBase
     {
         private string name;
         public string Name

@@ -7,10 +7,10 @@ using CaliburnPlayground.Models;
 namespace CaliburnPlayground.ViewModels
 {
     [Export(typeof(DashboardViewModel))]
-    public class DashboardViewModel : ViewModelBase, IHandle<SelectedItemChangedMessage>
+    public class DashboardViewModel : ViewModelBase, IHandle<SelectedSkuChangedMessage>
     {
         private string name;
-        private ToDoItem _toDoItem;
+        private Sku _toDoItem;
 
         public string Name
         {
@@ -28,11 +28,11 @@ namespace CaliburnPlayground.ViewModels
             DisplayName = "Dashboard";
         }
 
-        public void Handle(SelectedItemChangedMessage message)
+        public void Handle(SelectedSkuChangedMessage message)
         {
-            if (message.toDoItem != null)
+            if (message.Sku != null)
             {
-                _toDoItem = message.toDoItem;
+                _toDoItem = message.Sku;
                 Name = _toDoItem.Name;
             }
         }

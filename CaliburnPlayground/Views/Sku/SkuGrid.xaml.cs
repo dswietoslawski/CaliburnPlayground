@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CaliburnPlayground.Views.ToDoItem
+namespace CaliburnPlayground.Views.Sku
 {
     /// <summary>
-    /// Interaction logic for Tab2.xaml
+    /// Interaction logic for ItemGrid.xaml
     /// </summary>
-    public partial class Tab2 : UserControl
+    public partial class SkuGrid : UserControl
     {
-        public Tab2()
+        public SkuGrid()
         {
             InitializeComponent();
         }
