@@ -110,7 +110,6 @@
     <Compile Include="Services\SkuService.cs" />
     <Compile Include="ViewModels\StoreMarketGridViewModel.cs" />
     <Compile Include="ViewModels\ConductorBase.cs" />
-    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\GridContainerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SkuViewModel.cs" />
