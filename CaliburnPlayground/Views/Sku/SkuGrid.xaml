@@ -8,6 +8,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="Skus" AutoGenerateColumns="True" SelectedItem="{Binding SelectedSku}" cal:Message.Attach="[Event Loaded] = [OnSkusLoaded()]"  />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="AddSkuToCart" Grid.Row="0" Height="20" Width="100" Content="Add To Cart" Margin="5"></Button>
+        <DataGrid x:Name="Skus" Grid.Row="1" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSku}" cal:Message.Attach="[Event Loaded] = [OnSkusLoaded()]"  >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox cal:Message.Attach="CheckAllSkus($this)"></CheckBox>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="CheckSku($this, $dataContext)"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="ToDo">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding ToDoMarker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Model}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Part}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Size}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding SumQty}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

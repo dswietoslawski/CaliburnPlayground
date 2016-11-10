@@ -13,26 +13,37 @@ namespace CaliburnPlayground.Models
         private string _size;
         private string _model;
         private int _sumQty;
+        private bool isChecked;
+
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                NotifyOfPropertyChange(() => IsChecked);
+            }
+        }
 
         public IEnumerable<StoreMarket> Rodzice;
 
-        public string Name
+        public string Size
         {
             get { return _name; }
             set
             {
                 _name = value;
-                NotifyOfPropertyChange(() => Name);
+                NotifyOfPropertyChange(() => Size);
             }
         }
 
-        public string Size
+        public string Part
         {
             get { return _size; }
             set
             {
                 _size = value;
-                NotifyOfPropertyChange(() => Size);
+                NotifyOfPropertyChange(() => Part);
             }
         }
 
@@ -58,13 +69,13 @@ namespace CaliburnPlayground.Models
 
         public override int GetHashCode()
         {
-            return (Size + Model).GetHashCode();
+            return (Part + Model).GetHashCode();
         }
 
         public bool Equals(Sku other)
         {
             if (other == null) return false;
-            var x = Model.Equals(other.Model) && Size.Equals(other.Size);
+            var x = Model.Equals(other.Model) && Part.Equals(other.Part) && Size.Equals(other.Size);
             return x;
         }
 
@@ -75,7 +86,20 @@ namespace CaliburnPlayground.Models
 
         public override string ToString()
         {
-            return Name;
+            return Size;
         }
+
+        private bool toDoMarker;
+
+        public bool ToDoMarker
+        {
+            get { return toDoMarker; }
+            set
+            {
+                toDoMarker = value;
+                NotifyOfPropertyChange(() => ToDoMarker);
+            }
+        }
+
     }
 }

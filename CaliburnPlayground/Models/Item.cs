@@ -19,8 +19,8 @@ namespace CaliburnPlayground.Models
 
         private void Copy(IEnumerable<Sku> skus)
         {
+            this.Part = skus.First().Part;
             this.Size = skus.First().Size;
-            this.Name = skus.First().Name;
             this.Model = skus.First().Model;
         }
 
@@ -32,11 +32,18 @@ namespace CaliburnPlayground.Models
         public void Aggregate()
         {
             this.SumQty = AggregatedItems.Sum(m => m.SumQty);
+            this.ToDoMarker = AggregatedItems.Any(m => m.ToDoMarker);
         }
 
         public override int GetHashCode()
         {
-            return (Size + Model).GetHashCode();
+            return (Part + Model + Size).GetHashCode();
+        }
+
+        internal void changeToDoMarker(bool value)
+        {
+            foreach (var sku in AggregatedItems)
+                sku.ToDoMarker = value;
         }
     }
 }

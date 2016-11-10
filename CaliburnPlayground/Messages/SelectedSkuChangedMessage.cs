@@ -10,5 +10,8 @@ namespace CaliburnPlayground.Messages
     public class SelectedSkuChangedMessage
     {
         public Sku Sku { get; set; }
+        public int Count { get; set; }
+
+        public bool IsAggregate { get { return Count != 1; } }
     }
 }

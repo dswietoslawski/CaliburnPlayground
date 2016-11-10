@@ -15,7 +15,7 @@
         
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TabControl Margin="5" Grid.Column="0">

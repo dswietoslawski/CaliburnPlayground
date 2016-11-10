@@ -2,6 +2,7 @@
 using CaliburnPlayground.Messages;
 using CaliburnPlayground.Models;
 using CaliburnPlayground.Services;
+using CaliburnPlayground.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -50,7 +51,7 @@ namespace CaliburnPlayground.ViewModels
             {
                 _selectedSku = value;
                 NotifyOfPropertyChange(() => SelectedSku);
-                _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedSku });
+                _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedSku, Count = 1 });
             }
         }
 
@@ -64,8 +65,7 @@ namespace CaliburnPlayground.ViewModels
             {
                 _selectedItem = value;
                 NotifyOfPropertyChange(() => SelectedItem);
-                if (SelectedItem.AggregatedItems.Count() == 1)
-                    _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedItem.AggregatedItems.First() });
+                _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedItem.AggregatedItems.First(), Count = SelectedItem.AggregatedItems.Count() });
             }
         }
 
@@ -76,10 +76,11 @@ namespace CaliburnPlayground.ViewModels
             Items = new BindableCollection<Item>();
             skuService = new SkuService();
         }
+
         protected override void OnActivate()
         {
             Skus.AddRange(skuService.Get());
-            var groupedItems = Skus.GroupBy(m => m.Model + m.Size);
+            var groupedItems = Skus.GroupBy(m => m.Model + m.Part);
             foreach (var y in groupedItems)
                 Items.Add(new Item(y));
             base.OnActivate();
@@ -93,14 +94,40 @@ namespace CaliburnPlayground.ViewModels
 
         public void OnItemsLoaded()
         {
-            if (SelectedSku != null && !SelectedSku.Equals(SelectedItem))
-                SelectedItem = Items.First(m => m.Equals(SelectedSku));
+            if (SelectedSku != null)
+                SelectedItem = Items.First(m => m.Model == SelectedSku.Model && m.Part == SelectedSku.Part);
         }
 
         public void OnSkusLoaded()
         {
-            if (SelectedItem != null && !SelectedSku.Equals(SelectedItem))
-                SelectedSku = Skus.First(m => m.Equals(SelectedItem));
+            if (SelectedItem != null)
+                SelectedSku = Skus.First(m => m.Model == SelectedItem.Model && m.Part == SelectedItem.Part);
+        }
+
+        public void CheckAllSkus(bool value)
+        {
+            Skus.ForEach(m => m.IsChecked = value);
+            NotifyOfPropertyChange(() => CanAddSkuToCart);
+        }
+
+        public void AddSkuToCart()
+        {
+
+        }
+
+        public void CheckSku(bool value, Sku sku)
+        {
+            NotifyOfPropertyChange(() => CanAddSkuToCart);
+        }
+
+        public bool CanAddSkuToCart
+        {
+            get { return Skus.Any(m => m.IsChecked); }
+        }
+
+        public void CheckItemMarker(bool value, Item item)
+        {
+            item.changeToDoMarker(value);
         }
     }
 }

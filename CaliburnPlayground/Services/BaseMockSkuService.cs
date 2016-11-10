@@ -12,11 +12,11 @@ namespace CaliburnPlayground.Services
 
         static BaseMockSkuService()
         {
-            for (int i = 0; i < 5; i++)
+            Skus.Add(new Sku() { Model = "UnoModello", Size = "KZ", Part = "BestPart", SumQty = 30 });
+            for (int i = 0; i < 30; i++)
             {
-                Skus.Add(new Sku() { Model = "Asfalt", Name = "Korea" + i, Size = "1 inch", SumQty = 30 });
+                Skus.Add(new Sku() { Model = "Modelia", Size = "L" + i, Part = "OnePart", SumQty = 30 });
             }
-            Skus.Add(new Sku() { Model = "Polska", Name = "BialoCzerwoni", Size = "5 inch", SumQty = 30 });
 
             foreach (var sku in Skus)
             {
@@ -25,7 +25,7 @@ namespace CaliburnPlayground.Services
                 foreach (var storeMarket in storeMarkets)
                 {
                     storeMarket.Quantity = 3;
-                    storeMarket.ParentName = sku.Name;
+                    storeMarket.ParentName = sku.Size;
                 }
 
                 StoreMarkets.AddRange(storeMarkets);

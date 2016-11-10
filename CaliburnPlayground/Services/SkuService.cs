@@ -16,7 +16,7 @@ namespace CaliburnPlayground.Services
 
         public IEnumerable<StoreMarket> GetMarkets(Sku sku)
         {
-            return StoreMarkets.Where(m => m.ParentName == sku.Name);
+            return StoreMarkets.Where(m => m.ParentName == sku.Size);
         }
     }
 }

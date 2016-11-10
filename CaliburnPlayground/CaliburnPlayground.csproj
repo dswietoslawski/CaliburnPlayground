@@ -108,6 +108,7 @@
     <Compile Include="Models\StoreMarket.cs" />
     <Compile Include="Services\BaseMockSkuService.cs" />
     <Compile Include="Services\SkuService.cs" />
+    <Compile Include="Utils\Extensions\BindableCollectionExtensions.cs" />
     <Compile Include="ViewModels\StoreMarketGridViewModel.cs" />
     <Compile Include="ViewModels\ConductorBase.cs" />
     <Compile Include="ViewModels\GridContainerViewModel.cs" />

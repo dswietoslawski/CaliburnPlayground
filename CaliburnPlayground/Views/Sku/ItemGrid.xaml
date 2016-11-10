@@ -10,9 +10,25 @@
     <Grid>
         <DataGrid x:Name="Items" AutoGenerateColumns="False" MouseDown="ToDoItemsAggr_MouseDown" SelectedItem="{Binding SelectedItem}" cal:Message.Attach="[Event Loaded] = [OnItemsLoaded]">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Size}"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Sku}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox cal:Message.Attach="CheckAllSkus($this)"></CheckBox>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="ToDo">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding ToDoMarker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="CheckItemMarker($this, $dataContext)"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Model}"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Part}"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding SumQty}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

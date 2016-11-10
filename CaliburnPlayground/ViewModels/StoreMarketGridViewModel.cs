@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using System.ComponentModel.Composition;
 using CaliburnPlayground.Messages;
 using CaliburnPlayground.Models;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using CaliburnPlayground.Services;
 
 namespace CaliburnPlayground.ViewModels
 {
@@ -21,19 +14,32 @@ namespace CaliburnPlayground.ViewModels
         {
 
         }
-
         public void Handle(SelectedSkuChangedMessage message)
         {
-            if (message.Sku == null || (_storeMarkets != null && (message.Sku.Equals(StoreMarkets)))) return;
-
-            var qt = message.Sku.SumQty;
-            if (message.Sku != null)
-            {
-                this._sku = message.Sku;
-                StoreMarkets.Clear();
-                StoreMarkets.AddRange(_skuService.GetMarkets(_sku));
-            }
+            IsVisible = !message.IsAggregate;
+            if (message.Sku == null || (_storeMarkets != null && (message.Sku.Equals(_sku)))) return;
+            this._sku = message.Sku;
+            refreshStoreMarkets();
             _sku.Rodzice = StoreMarkets;
+        }
+
+        private bool isVisible;
+
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                isVisible = value;
+                NotifyOfPropertyChange(() => IsVisible);
+            }
+        }
+
+
+        private void refreshStoreMarkets()
+        {
+            StoreMarkets.Clear();
+            StoreMarkets.AddRange(_skuService.GetMarkets(_sku));
         }
 
         public void OnLostFocus(object source, StoreMarket item)
