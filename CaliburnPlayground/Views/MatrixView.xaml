@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="CaliburnPlayground.Views.MatrixView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CaliburnPlayground.Views"
+             xmlns:helpers="clr-namespace:CaliburnPlayground.Helpers"
+             mc:Ignorable="d" 
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <helpers:DebugDataBindingConverter x:Key="DebugBinding"></helpers:DebugDataBindingConverter>
+            <helpers:SingleToEnumerableConverter x:Key="SingleToEnumerable"></helpers:SingleToEnumerableConverter>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,17">
+            <DataGrid ItemsSource="{Binding AggregatedMarkets}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="C_ID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CustomerId}"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="D_ID">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DestinationId}"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="SumQty">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SumQty}"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1">
+            <ItemsControl VerticalAlignment="Bottom" ItemsSource="{Binding Items}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Model}" HorizontalAlignment="Center"></TextBlock>
+
+                            <ItemsControl ItemsSource="{Binding Skus, 
+            diag:PresentationTraceSources.TraceLevel=High}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"></StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel x:Name="stackPanel">
+                                            <TextBlock Text="{Binding Size}"></TextBlock>
+                                            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=stackPanel, Path=DataContext, Converter={StaticResource SingleToEnumerable}}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="SumQty" Binding="{Binding Path=SumQty}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding StoreMarkets}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTemplateColumn>
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Quantity}"  />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=Explicit}" cal:Message.Attach="[Event LostFocus] = [OnLostFocus($source, $dataContext)]"  />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

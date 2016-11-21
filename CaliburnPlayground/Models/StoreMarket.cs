@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CaliburnPlayground.ViewModels;
 
 namespace CaliburnPlayground.Models
 {
-    public class StoreMarket : PropertyChangedBase
+    public class StoreMarket : Recalculatable
     {
         private string name;
         public string Name
@@ -19,6 +20,9 @@ namespace CaliburnPlayground.Models
                 NotifyOfPropertyChange(() => Name);
             }
         }
+        public int SkuId { get; set; }
+
+        public Sku Sku { get; set; }
 
         private int id;
         private string parentName;
@@ -33,13 +37,13 @@ namespace CaliburnPlayground.Models
             }
         }
 
-        public string ParentName
+        public string Size
         {
             get { return parentName; }
             set
             {
                 parentName = value;
-                NotifyOfPropertyChange(() => ParentName);
+                NotifyOfPropertyChange(() => Size);
             }
         }
 
@@ -53,6 +57,30 @@ namespace CaliburnPlayground.Models
                 quantity = value;
                 NotifyOfPropertyChange(() => Quantity);
             }
+        }
+
+        private string destinationId;
+
+        public string DestinationId
+        {
+            get { return destinationId; }
+            set { destinationId = value; }
+        }
+
+        private string customerId;
+
+        public string CustomerId
+        {
+            get { return customerId; }
+            set { customerId = value; }
+        }
+
+        public AggrMarket MarketGroup { get; internal set; }
+
+        public override void Recalculate()
+        {
+            Sku?.Recalculate();
+            MarketGroup?.Recalculate();
         }
     }
 }

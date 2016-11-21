@@ -12,9 +12,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -24,12 +24,6 @@
         </TabControl>
 
         <ContentControl Grid.Column="1" cal:View.Model="{Binding SkuGrid}" cal:View.Context="Dashboard"></ContentControl>
-        <!--<ContentControl Grid.Column="1" cal:View.Model="{Binding ToDoItemVM}" cal:View.Context="Tab2"></ContentControl>-->
-
-        <!--<Border Margin="0,27,0,5" Grid.Column="1" BorderBrush="Aqua" BorderThickness="10">
-            <ContentControl x:Name="Dashboard"></ContentControl>
-        </Border>-->
-
         <ContentControl Grid.Row="1" Grid.ColumnSpan="2" x:Name="StoreMarketGrid"></ContentControl>
     </Grid>
 </UserControl>

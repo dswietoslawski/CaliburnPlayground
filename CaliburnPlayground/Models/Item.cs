@@ -6,15 +6,26 @@ namespace CaliburnPlayground.Models
 {
     public class Item : Sku, IEquatable<Sku>
     {
-        public IEnumerable<Sku> AggregatedItems;
+        private IEnumerable<Sku> skus;
+
+        public IEnumerable<Sku> Skus
+        {
+            get { return skus; }
+            set
+            {
+                skus = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
 
         public Item(IEnumerable<Sku> skus)
         {
-            AggregatedItems = skus;
+            Skus = skus;
             foreach (var sku in skus)
-                sku.PropertyChanged += Item_PropertyChanged;
+                sku.Item = this;
             Copy(skus);
-            Aggregate();
+            Recalculate();
         }
 
         private void Copy(IEnumerable<Sku> skus)
@@ -24,15 +35,11 @@ namespace CaliburnPlayground.Models
             this.Model = skus.First().Model;
         }
 
-        private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        public override void Recalculate()
         {
-            Aggregate();
-        }
-
-        public void Aggregate()
-        {
-            this.SumQty = AggregatedItems.Sum(m => m.SumQty);
-            this.ToDoMarker = AggregatedItems.Any(m => m.ToDoMarker);
+            this.SumQty = Skus.Sum(m => m.SumQty);
+            this.ToDoMarker = Skus.Any(m => m.ToDoMarker);
+            this.IsChecked = Skus.Any(m => m.IsChecked);
         }
 
         public override int GetHashCode()
@@ -42,7 +49,7 @@ namespace CaliburnPlayground.Models
 
         internal void changeToDoMarker(bool value)
         {
-            foreach (var sku in AggregatedItems)
+            foreach (var sku in Skus)
                 sku.ToDoMarker = value;
         }
     }

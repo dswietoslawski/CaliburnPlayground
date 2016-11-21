@@ -20,7 +20,7 @@ namespace CaliburnPlayground.ViewModels
             if (message.Sku == null || (_storeMarkets != null && (message.Sku.Equals(_sku)))) return;
             this._sku = message.Sku;
             refreshStoreMarkets();
-            _sku.Rodzice = StoreMarkets;
+            _sku.StoreMarkets = StoreMarkets;
         }
 
         private bool isVisible;
@@ -48,7 +48,7 @@ namespace CaliburnPlayground.ViewModels
             var bt = t.GetBindingExpression(TextBox.TextProperty);
             bt.UpdateSource();
 
-            _sku.recalculate();
+            item.Recalculate();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace CaliburnPlayground.ViewModels
             {
                 _selectedItem = value;
                 NotifyOfPropertyChange(() => SelectedItem);
-                _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedItem.AggregatedItems.First(), Count = SelectedItem.AggregatedItems.Count() });
+                _eventAggregator.PublishOnUIThread(new SelectedSkuChangedMessage() { Sku = SelectedItem.Skus.First(), Count = SelectedItem.Skus.Count() });
             }
         }
 
@@ -80,9 +80,7 @@ namespace CaliburnPlayground.ViewModels
         protected override void OnActivate()
         {
             Skus.AddRange(skuService.Get());
-            var groupedItems = Skus.GroupBy(m => m.Model + m.Part);
-            foreach (var y in groupedItems)
-                Items.Add(new Item(y));
+            aggregateSkus(Skus, Items);
             base.OnActivate();
         }
 
@@ -104,6 +102,7 @@ namespace CaliburnPlayground.ViewModels
                 SelectedSku = Skus.First(m => m.Model == SelectedItem.Model && m.Part == SelectedItem.Part);
         }
 
+
         public void CheckAllSkus(bool value)
         {
             Skus.ForEach(m => m.IsChecked = value);
@@ -118,6 +117,7 @@ namespace CaliburnPlayground.ViewModels
         public void CheckSku(bool value, Sku sku)
         {
             NotifyOfPropertyChange(() => CanAddSkuToCart);
+            NotifyOfPropertyChange(() => CanShowMatrix);
         }
 
         public bool CanAddSkuToCart
@@ -129,5 +129,28 @@ namespace CaliburnPlayground.ViewModels
         {
             item.changeToDoMarker(value);
         }
+
+        public void ShowSkuMatrix()
+        {
+            ICollection<Item> items = new List<Item>();
+            aggregateSkus(Skus.Where(m => m.IsChecked), items);
+
+            MatrixViewModel matrix = new MatrixViewModel(_eventAggregator, _windowManager, items, SelectedSku);
+            _windowManager.ShowWindow(matrix);
+        }
+
+        private void aggregateSkus(IEnumerable<Sku> skus, ICollection<Item> items)
+        {
+            var groupedItems = skus.GroupBy(m => m.Model + m.Part);
+            foreach (var y in groupedItems)
+                items.Add(new Item(y));
+        }
+
+        public bool CanShowMatrix
+        {
+            get { return Skus.Any(m => m.IsChecked); }
+        }
+
+        public MatrixViewModel _matrix { get; private set; }
     }
 }

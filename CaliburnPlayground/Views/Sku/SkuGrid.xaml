@@ -12,7 +12,10 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button x:Name="AddSkuToCart" Grid.Row="0" Height="20" Width="100" Content="Add To Cart" Margin="5"></Button>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="AddSkuToCart" Grid.Row="0" Height="20" Width="100" Content="Add To Cart" Margin="5"></Button>
+            <Button x:Name="ShowSkuMatrix" Grid.Row="0" Height="20" Width="100" Content="Show Matrix" Margin="5"></Button>
+        </StackPanel>
         <DataGrid x:Name="Skus" Grid.Row="1" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSku}" cal:Message.Attach="[Event Loaded] = [OnSkusLoaded()]"  >
             <DataGrid.Columns>
                 <DataGridTemplateColumn>

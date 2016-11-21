@@ -7,13 +7,26 @@ using System.Threading.Tasks;
 
 namespace CaliburnPlayground.Models
 {
-    public class Sku : PropertyChangedBase, IEquatable<Sku>
+    public class Sku : Recalculatable, IEquatable<Sku>
     {
-        private string _name;
-        private string _size;
-        private string _model;
-        private int _sumQty;
+        private string size;
+        private string part;
+        private string model;
         private bool isChecked;
+        private int sumQty;
+        
+        public int SkuId;
+
+        public int SumQty
+        {
+            get { return sumQty; }
+            set
+            {
+                sumQty = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
 
         public bool IsChecked
         {
@@ -25,45 +38,46 @@ namespace CaliburnPlayground.Models
             }
         }
 
-        public IEnumerable<StoreMarket> Rodzice;
+        private ICollection<StoreMarket> storeMarkets;
+
+        public ICollection<StoreMarket> StoreMarkets
+        {
+            get { return storeMarkets; }
+            set
+            {
+                storeMarkets = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
 
         public string Size
         {
-            get { return _name; }
+            get { return size; }
             set
             {
-                _name = value;
+                size = value;
                 NotifyOfPropertyChange(() => Size);
             }
         }
 
         public string Part
         {
-            get { return _size; }
+            get { return part; }
             set
             {
-                _size = value;
+                part = value;
                 NotifyOfPropertyChange(() => Part);
             }
         }
 
         public string Model
         {
-            get { return _model; }
+            get { return model; }
             set
             {
-                _model = value;
+                model = value;
                 NotifyOfPropertyChange(() => Model);
-            }
-        }
-
-        public int SumQty
-        {
-            get { return _sumQty; }
-            set
-            {
-                _sumQty = value;
-                NotifyOfPropertyChange(() => SumQty);
             }
         }
 
@@ -79,14 +93,15 @@ namespace CaliburnPlayground.Models
             return x;
         }
 
-        internal void recalculate()
-        {
-            this.SumQty = Rodzice.Sum(m => m.Quantity);
-        }
-
         public override string ToString()
         {
             return Size;
+        }
+
+        public override void Recalculate()
+        {
+            SumQty = storeMarkets.Sum(m => m.Quantity);
+            Item.Recalculate();
         }
 
         private bool toDoMarker;
@@ -101,5 +116,6 @@ namespace CaliburnPlayground.Models
             }
         }
 
+        public Item Item { get; internal set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CaliburnPlayground.Models;
+using CaliburnPlayground.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace CaliburnPlayground.Services
             return Skus;
         }
 
-        public IEnumerable<StoreMarket> GetMarkets(Sku sku)
+        public ICollection<StoreMarket> GetMarkets(Sku sku)
         {
-            return StoreMarkets.Where(m => m.ParentName == sku.Size);
+            var result = StoreMarkets.Where(m => m.SkuId == sku.SkuId).ToList();
+            result.ForEach(m => m.Sku = sku);
+
+            return result;
         }
     }
 }

@@ -10,13 +10,15 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
-    <Grid Visibility="{Binding IsVisible, Converter={StaticResource BoolToVis}}">
+    <Grid Height="300" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVis}}">
         <DataGrid x:Name="StoreMarkets" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CustomerId}" Header="Customer Id"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding DestinationId}" Header="Destination Id"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Quantity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Quantity}"  />
+                            <TextBlock Text="{Binding Quantity}"  />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
