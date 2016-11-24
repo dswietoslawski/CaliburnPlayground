@@ -12,7 +12,6 @@ namespace CaliburnPlayground.ViewModels
 {
     public class MatrixViewModel : ViewModelBase
     {
-
         private BindableCollection<Item> items;
         private SkuService skuService;
 

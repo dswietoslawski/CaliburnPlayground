@@ -51,7 +51,7 @@
             </DataGrid>
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1">
-            <ItemsControl VerticalAlignment="Bottom" ItemsSource="{Binding Items}">
+            <ItemsControl x:Name="ItemsCont" VerticalAlignment="Bottom" ItemsSource="{Binding Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
@@ -71,14 +71,14 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel x:Name="stackPanel">
+                                        <StackPanel>
                                             <TextBlock Text="{Binding Size}"></TextBlock>
                                             <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ElementName=stackPanel, Path=DataContext, Converter={StaticResource SingleToEnumerable}}">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="SumQty" Binding="{Binding Path=SumQty}"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
-                                            <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding StoreMarkets}">
+                                            <DataGrid Tag="MOOOO" PreviewKeyDown="stackPanel_PreviewKeyDown" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding StoreMarkets}">
                                                 <DataGrid.Columns>
                                                     <DataGridTemplateColumn>
                                                         <DataGridTemplateColumn.CellTemplate>
